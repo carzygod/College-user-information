@@ -8,14 +8,15 @@
 		</u-dropdown>
 	</view>
 		<!-- 🔥搜索框 -->
-		<u-search placeholder="你想搜的内容" v-model="keyword"></u-search>
+		
+		<u-search placeholder="你想搜的内容" v-model="keyword" :show-action="true" action-text="搜索" :animation="true" @custom="search" @search="search"></u-search>
 		<!-- 🔥获取数据 -->
 		<!-- 🔥数据种类判断 -->
 		<block v-if="selection==0">
 			
 		
 		<!-- 🔥循环数据  🚀卡片开始 -->
-		<block v-for="(card,index) in cards" :key="index">
+		<block v-for="(card,index) in cards" :key="index" @click="search()">
 				<view class="cu-list menu-avatar comment solids-top">
 					<view class="cu-item">
 						<view class="cu-avatar round" :style="`background-image:url(https://ui-avatars.com/api/${card.施工总承包单位名称});`"></view>
@@ -356,6 +357,33 @@
 			}
 		},
 		methods: {
+			/**
+			 * 🔥搜索查询
+			 */
+			
+			search(){
+
+				
+				var key=this.options1[this.selection-1].label;
+				uni.request({
+				    url: this.rowData[key],
+					
+				    data: {
+				        keyword: this.keyword,
+						
+				    },
+				    header: {
+				        //'custom-header': 'hello' //自定义请求头信息
+				    },
+				    success: (res) => {
+				        
+				        console.log(res.data.data.items);
+						this.cards=res.data.data.items.data;
+						this.nextPage=res.data.data.items.next_page_url;
+				    }
+				});
+				
+			},
 			/**
 			 * 🔥下拉监听
 			 */
