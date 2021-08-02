@@ -15,7 +15,7 @@
 		{
 			"path": "pages/toolbox/toolbox/toolbox",
 			"style": {
-				"navigationBarTitleText": "工具箱"
+				"navigationBarTitleText": "高校数据检索"
 			}
 		},
 		// avatarCropper-头像裁剪
